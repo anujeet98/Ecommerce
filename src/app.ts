@@ -1,14 +1,26 @@
-import express, {Request, Response} from "express";
 import dotenv from "dotenv";
 dotenv.config();
+import express from "express";
+import dbconnection from "./services/db";
+import expressApp from "./services/express";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const serverInit = async() => {
+    try{
+        const app = express();
+        await dbconnection();
+        await expressApp(app);
 
-app.get('/', (req: Request, res: Response)=>{
-    res.send('Testing initial load, watch testing');
-})
 
-app.listen(PORT, ()=>{
-    console.log(`server running on port :: ${PORT}`);
-});
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, ()=>{
+            console.log(`server running on port :: ${PORT}`);
+        });
+    }
+    catch(err){
+        console.error("ServerInit Error..");
+    }
+}
+
+serverInit();
+
+
