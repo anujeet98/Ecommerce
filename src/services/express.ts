@@ -1,5 +1,6 @@
 import express, {Application} from "express";
-import userRoutes from '../routes/user_routes';
+import userRoutes from '../routes/user';
+import productRoutes from '../routes/product';
 
 export default async (app: Application) => {
 
@@ -7,7 +8,8 @@ export default async (app: Application) => {
     app.use(express.urlencoded({extended: true}));
 
 
-    app.use('/user', userRoutes);
+    app.use('/api', userRoutes);
+    app.use('/api', productRoutes);
 
     return app;
 }

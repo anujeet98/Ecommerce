@@ -1,10 +1,11 @@
 import mongoose, {Document, Schema} from 'mongoose';
 
 export interface IProduct extends Document {
-    name: string;
+    title: string;
     description: string;
     price: number;
     image_url: String;
+    date: Date;
     deleted: String;
 }
 
@@ -24,6 +25,11 @@ const productSchema = new Schema({
     image_url: { 
         type: String, 
         required: true 
+    },
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now()
     },
     deleted: {
         type: String,
