@@ -23,15 +23,13 @@ exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
     app.use(express_1.default.urlencoded({ extended: true }));
-    if (process.env.NODE_ENV === 'production') {
-        app.use(express_1.default.static('client/build'));
-        app.get('*', (req, res) => {
-            res.sendFile(path_1.default.resolve(__dirname, 'client', 'build', 'index.html'));
-        });
-    }
+    app.use(express_1.default.static(path_1.default.join(__dirname, '../../client/build')));
     app.use('/api', user_1.default);
     app.use('/api', product_1.default);
     app.use('/api', cart_1.default);
     app.use('/api', order_1.default);
+    app.get('*', (req, res) => {
+        res.sendFile(path_1.default.join(__dirname, '../../client/build', 'index.html'));
+    });
     return app;
 });

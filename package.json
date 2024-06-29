@@ -8,7 +8,8 @@
     "start": "tsc && node dist/index.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\" \"npm run client\" ",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "vercel-build": "echo hello"
   },
   "author": "",
   "license": "ISC",

@@ -4,9 +4,10 @@ import express from "express";
 import dbconnection from "./services/db";
 import expressApp from "./services/express";
 
+const app = express();
+
 const serverInit = async() => {
     try{
-        const app = express();
         await dbconnection();
         await expressApp(app);
 
@@ -22,5 +23,7 @@ const serverInit = async() => {
 }
 
 serverInit();
+
+export default app;
 
 
