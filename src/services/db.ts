@@ -7,6 +7,7 @@ const mongoConnect = async() => {
     }
     catch(err){
         console.error('DBError :: Failed to connect with the database');
+        process.exit(1);
     }
 }   
 
