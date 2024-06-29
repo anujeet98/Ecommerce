@@ -12,23 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
-const db_1 = __importDefault(require("./services/db"));
-const express_2 = __importDefault(require("./services/express"));
-const serverInit = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const app = (0, express_1.default)();
-        yield (0, db_1.default)();
-        yield (0, express_2.default)(app);
-        const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
-            console.log(`server running on port :: ${PORT}`);
+const user_1 = __importDefault(require("../routes/user"));
+const product_1 = __importDefault(require("../routes/product"));
+const cart_1 = __importDefault(require("../routes/cart"));
+const order_1 = __importDefault(require("../routes/order"));
+const path_1 = __importDefault(require("path"));
+exports.default = (app) => __awaiter(void 0, void 0, void 0, function* () {
+    app.use((0, cors_1.default)());
+    app.use(express_1.default.json());
+    app.use(express_1.default.urlencoded({ extended: true }));
+    if (process.env.NODE_ENV === 'production') {
+        app.use(express_1.default.static('client/build'));
+        app.get('*', (req, res) => {
+            res.sendFile(path_1.default.resolve(__dirname, 'client', 'build', 'index.html'));
         });
     }
-    catch (err) {
-        console.error("ServerInit Error..");
-    }
+    app.use('/api', user_1.default);
+    app.use('/api', product_1.default);
+    app.use('/api', cart_1.default);
+    app.use('/api', order_1.default);
+    return app;
 });
-serverInit();
