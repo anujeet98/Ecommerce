@@ -15,8 +15,7 @@ const authenticate = async(req: Request, res: Response, next: NextFunction) => {
         if(!process.env.JWT_SECRET)
             throw new Error('JWT_TOKEN_SECRET_NOT_FOUND in env');
 
-            
-        const verifiedToken = jwt.verify(token, `${process.env.JWT_TOKEN_SECRET}`) as authToken;
+        const verifiedToken = jwt.verify(token, `${process.env.JWT_SECRET}`) as authToken;
 
         const verifiedUser = await User.findById({_id: verifiedToken.userId});
 
