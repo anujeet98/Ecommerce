@@ -13,6 +13,10 @@ export default async (app: Application) => {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(express.static(path.join(__dirname, '../../client/build')));
 
+    app.get('/', function (req, res) {
+        res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
+    });
+
 
     app.use('/api', userRoutes);
     app.use('/api', productRoutes);
