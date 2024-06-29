@@ -83,10 +83,7 @@ export const deleteFromCart = async(req: Request, res: Response, next: NextFunct
         let prod = await Product.findOne({_id: productId}) as IProduct;
         let id = prod._id;
 
-        let index = cart.items.findIndex(p => {
-            console.log(p.product === id as IProduct, p.product, id);
-        });
-        console.log(index)
+        let index = cart.items.findIndex(p => p.product._id.equals(prod._id));
         if(index > -1)
         {
             let productItem = cart.items[index];
