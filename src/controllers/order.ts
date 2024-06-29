@@ -5,6 +5,10 @@ import Order, { IOrder } from "../models/order";
 import Cart, { ICart } from "../models/cart";
 import { IUser, User } from "../models/user";
 
+interface CheckoutRequest extends Request {
+    user?: IUser;
+    order?: IOrder;
+}
 
 export const getOrder = async(req: Request, res: Response, next: NextFunction) => {
     try{
@@ -19,7 +23,7 @@ export const getOrder = async(req: Request, res: Response, next: NextFunction) =
 }
 
 
-export const checkout = async(req: Request, res: Response, next: NextFunction) => {
+export const checkout = async(req: CheckoutRequest, res: Response, next: NextFunction) => {
     try{
 
         let cart = await Cart.findOne({user: req.user?._id}) as ICart;
@@ -30,7 +34,9 @@ export const checkout = async(req: Request, res: Response, next: NextFunction) =
                 totalPrice: cart.total
             }); 
             const data = await Cart.findByIdAndDelete({_id:cart._id});
-            return res.status(201).send(order);
+            req.order = order;
+            next();
+            // return res.status(201).send(order);
         }
         else{
             res.status(500).send("You do not have items in cart");
