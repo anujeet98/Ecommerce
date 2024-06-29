@@ -5,11 +5,12 @@ import productRoutes from '../routes/product';
 import cartRoutes from '../routes/cart';
 import orderRoutes from '../routes/order';
 import path from 'path';
+import bodyParser from 'body-parser';
 
 export default async (app: Application) => {
     app.use(cors());
-    app.use(express.json());
-    app.use(express.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
     app.use(express.static(path.join(__dirname, '../../client/build')));
 
 
