@@ -5,3 +5,9 @@ export interface authObj {
     email: string,
     password: string
 }
+
+export interface authToken {
+    userId: string,
+    email: string,
+    role: string
+}
