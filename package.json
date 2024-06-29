@@ -9,7 +9,7 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"tsc -w\" \"nodemon src/index.ts\" \"npm run client\" ",
     "build": "npx tsc",
-    "vercel-build": "echo hello"
+    "vercel-build": "npm run build"
   },
   "author": "",
   "license": "ISC",
