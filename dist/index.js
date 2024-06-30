@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
-const db_1 = __importDefault(require("./services/db"));
-const express_2 = __importDefault(require("./services/express"));
+const db_1 = __importDefault(require("./src/services/db"));
+const express_2 = __importDefault(require("./src/services/express"));
+const app = (0, express_1.default)();
 const serverInit = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const app = (0, express_1.default)();
         yield (0, db_1.default)();
         yield (0, express_2.default)(app);
         const PORT = process.env.PORT || 3000;
@@ -32,3 +32,4 @@ const serverInit = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 serverInit();
+exports.default = app;

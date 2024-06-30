@@ -48,7 +48,7 @@ const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
                     email: existingUser.email,
                     role: existingUser.role
                 };
-                return res.status(201).json({ message: "User login successful", status: "success", token: jsonwebtoken_1.default.sign(payload, `${process.env.JWT_SECRET}`, { expiresIn: '1h' }) });
+                return res.status(201).json({ message: "User login successful", status: "success", token: jsonwebtoken_1.default.sign(payload, `${process.env.JWT_SECRET}`, { expiresIn: '1h' }), role: existingUser.role });
             }
             else {
                 return res.status(401).json({ error: "Incorrect user password." });

@@ -40,7 +40,7 @@ export const signin = async(req: Request, res: Response, next: NextFunction) => 
                     email: existingUser.email,
                     role: existingUser.role
                 };
-                return res.status(201).json({message: "User login successful", status: "success", token: jwt.sign(payload, `${process.env.JWT_SECRET}`, {expiresIn: '1h'}) });
+                return res.status(201).json({message: "User login successful", status: "success", token: jwt.sign(payload, `${process.env.JWT_SECRET}`, {expiresIn: '1h'}), role: existingUser.role });
             }
             else{
                 return res.status(401).json({error: "Incorrect user password."});
