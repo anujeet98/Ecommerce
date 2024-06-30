@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MainHeader = (props) => {
   const authContext = useSelector(state=>state.auth.isLoggedIn);
+  const isAdmin = useSelector(state=>state.auth.admin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,8 +21,8 @@ const MainHeader = (props) => {
 
   return (
     <Navbar className={classes.header} fixed='top'>
-      <div className='d-flex align-items-center justify-content-center'>
-        <h1>MERN Ecomm</h1>
+      <div className='d-flex align-items-center justify-content-between w-100'>
+        <h1>SwiftCart</h1>
         <nav>
           <ul className='d-flex'>
             <li>
@@ -33,12 +34,13 @@ const MainHeader = (props) => {
           </ul>
         </nav>
       </div>
-      <div>
+      <div className=''>
         <Navbar>
           <nav>
-            <ul>
-              <li>Home</li>
-              <li>Admin</li>
+            <ul className='text-light d-flex list-unstyled gap-3 justify-content-start align-items-start'>
+              <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/')}>Home</li>
+              {authContext && <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/admin')}>My Orders</li>}
+              {isAdmin && <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/admin')}>Admin</li>}
             </ul>
           </nav>
         </Navbar>

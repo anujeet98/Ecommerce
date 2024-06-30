@@ -1,11 +1,13 @@
 .header {
   width: 100%;
-  height: 5rem;
+  height: 6rem;
   padding: 0 10%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: space-between;
   background-color: #252424;
+  gap: 0;
 }
 
 .header h1 {
