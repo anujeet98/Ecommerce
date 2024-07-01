@@ -14,8 +14,6 @@ const Cart = (props) => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        if(!token)
-            return alert('token expired. Kindly login again');
         async function fetchCart(){
             try{
                 const res = await axios.get('http://localhost:3000/api/cart',{
@@ -32,13 +30,32 @@ const Cart = (props) => {
             }
         }
         fetchCart();
-    },[]);
+    },[dispatch, token]);
+
+    if(!token)
+        return alert('token expired. Kindly login again');
 
     const cartItems = []; 
     cartCtx.forEach((item,key) => {
         cartItems.push(<CartItem key={item.product} data={item}/>);
     });
 
+    const checkoutHandler = async()=>{
+        if(!token)
+            return alert('token expired. Kindly login again');
+        try{
+            await axios.post('http://localhost:3000/api/order', null, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            dispatch(cartActions.emptyCart());
+            alert('Thank you for shopping. Kindly find the bill sent to your email. Please check to spam if not found');
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
     return (
         <Modal onHideCart={props.onHideCart}>
             <ul className={classes.ul}>
@@ -50,7 +67,7 @@ const Cart = (props) => {
             </div>
             <div className={classes.btnGrp}>
                 <button className={classes['button--cancel']} onClick={props.onHideCart}>Close</button>
-                <button className={classes.button}>Chekout</button>
+                <button className={classes.button} onClick={checkoutHandler}>Chekout</button>
             </div>
         </Modal>
     )

@@ -87,8 +87,11 @@ export const deleteFromCart = async(req: Request, res: Response, next: NextFunct
         if(index > -1)
         {
             let productItem = cart.items[index];
-            cart.total -= productItem.quantity*prod.price;
-            cart.items.splice(index,1);
+            productItem.quantity -= 1;
+            cart.items[index] = productItem;
+            if(cart.items[index].quantity===0)
+                cart.items.splice(index,1);
+            cart.total-=productItem.price;
         }
         cart = await cart.save();
         return res.status(201).send(cart);

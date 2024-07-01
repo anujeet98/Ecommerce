@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import classes from '../styles/Home.module.css';
-import { sampleProducts } from '../sample/products';
 import ProductItem from '../components/Product/ProductItem';
 import axios from 'axios';
 

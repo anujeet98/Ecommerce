@@ -88,8 +88,11 @@ const deleteFromCart = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         let index = cart.items.findIndex(p => p.product._id.equals(prod._id));
         if (index > -1) {
             let productItem = cart.items[index];
-            cart.total -= productItem.quantity * prod.price;
-            cart.items.splice(index, 1);
+            productItem.quantity -= 1;
+            cart.items[index] = productItem;
+            if (cart.items[index].quantity === 0)
+                cart.items.splice(index, 1);
+            cart.total -= productItem.price;
         }
         cart = yield cart.save();
         return res.status(201).send(cart);

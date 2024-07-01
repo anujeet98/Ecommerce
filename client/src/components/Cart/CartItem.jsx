@@ -1,17 +1,66 @@
 
 import classes from './CartItem.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cartActions } from '../../contexts/cartSlice';
+import axios from 'axios';
+
+const addToCartAPI = async(token, cartItemObj) =>{
+    try{
+        const res = await axios.post('http://localhost:3000/api/cart', cartItemObj, {
+            headers: {
+                Authorization: token
+            }
+        });
+
+        return res;
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
+const removeFromCartAPI = async(token, productId) =>{
+    try{
+        const res = await axios.delete('http://localhost:3000/api/cart/'+productId,{
+            headers: {
+                Authorization: token
+            }
+        });
+
+        return res;
+    }
+    catch(err){
+        throw new Error(err);
+    }
+}
 
 
 const CartItem = (props) => {
     const dispatch = useDispatch();
+    const token = useSelector(state=>state.auth.token);
+    if(!token)
+        return alert('Token expired. Kindly login again');
 
 
-    const addItemHandler = () => {
+    const addItemHandler = async() => {
         const item = {...props.data, quantity: 1};
-        delete item.description;
-        dispatch(cartActions.addToCart(item));
+        try{
+            await addToCartAPI(token, item);
+            dispatch(cartActions.addToCart(item));
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+
+    const removeItemHandler = async() => {
+        const item = {...props.data, quantity: 1};
+        try{
+            await removeFromCartAPI(token,item.product);
+            dispatch(cartActions.removeFromCart({...props.data, quantity: 1}))
+        }
+        catch(err){
+            console.log(err);
+        }
     }
     return (
         <li className={classes["cartItem-li"]}>
@@ -23,7 +72,7 @@ const CartItem = (props) => {
                 </div>
             </div>
             <div className={classes["item-btn-action-grp"]}>
-                <button onClick={()=>dispatch(cartActions.removeFromCart(props.data.product))}>-</button>
+                <button onClick={removeItemHandler}>-</button>
                 <button onClick={addItemHandler}>+</button>
             </div>
         </li>
