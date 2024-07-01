@@ -26,10 +26,13 @@ function AdminProducts() {
       }
       fetchData();
   },[setProducts]);
+  const deleteHandler = (id) => {
+    setProducts(products=>products.filter(product=>product._id!==id));
+  }
   return (
     <div className='px-5'>
       <ul className='d-flex flex-column gap-2'>      
-          {products.map(product => <ProductItem key={product._id} data={product} />)}
+          {products.map(product => <ProductItem key={product._id} data={product} onDelete={deleteHandler} />)}
       </ul>
     </div>
   )
