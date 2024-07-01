@@ -4,7 +4,7 @@ import { FaEdit } from 'react-icons/fa';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
-function ProductItem({data, onDelete}) {
+function ProductItem({data, onDelete, onEdit}) {
     const token = useSelector(state=>state.auth.token);
     async function deleteProductHandler(id){
         const conf = window.confirm('Kindly confirm before you proceed to delete this product');
@@ -31,7 +31,7 @@ function ProductItem({data, onDelete}) {
         <div className='d-flex align-items-center justify-content-between'>
             <h3>{data.title}</h3>
             <div className='d-flex align-items-center gap-3 fs-3'>
-                <button className='p-0 m-0 border-0 bg-transparent'><FaEdit className='' /></button>
+                <button onClick={()=>onEdit(data)} className='p-0 m-0 border-0 bg-transparent'><FaEdit className='' /></button>
                 <button onClick={()=>deleteProductHandler(data._id)} className='p-0 m-0 border-0 bg-transparent'><MdDelete className='text-danger' /></button>
             </div>
         </div>

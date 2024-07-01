@@ -6,6 +6,15 @@ import Orders from '../components/Admin/Orders';
 
 function Admin() {
   const [navItem, setNavItem] = useState(0);
+  const [editProduct, setEditProduct] = useState(null);
+  const editProductHandler = (product)=>{
+    setNavItem(1);
+    setEditProduct(product);
+  }
+  const editCompletionHandler = () => {
+    setNavItem(0);
+    setEditProduct(null);
+  }
   return (
     <Fragment>
       <div className='pt-2 d-flex justify-content-center'>
@@ -20,8 +29,8 @@ function Admin() {
         </Navbar>
       </div>
       <div>
-        {navItem===0 && <AdminProducts/>}
-        {navItem===1 && <AddProducts/>}
+        {navItem===0 && <AdminProducts onEditProduct={editProductHandler}/>}
+        {navItem===1 && <AddProducts product={editProduct} onEditCompletion={()=>editCompletionHandler()}/>}
         {navItem===2 && <Orders/>}
       </div>
     

@@ -12,7 +12,7 @@ const fetchProducts = async() => {
   }
 }
 
-function AdminProducts() {
+function AdminProducts({onEditProduct}) {
   const [products, setProducts] = useState([]);
   useEffect(()=>{
       async function fetchData(){
@@ -32,7 +32,7 @@ function AdminProducts() {
   return (
     <div className='px-5'>
       <ul className='d-flex flex-column gap-2'>      
-          {products.map(product => <ProductItem key={product._id} data={product} onDelete={deleteHandler} />)}
+          {products.map(product => <ProductItem key={product._id} data={product} onDelete={deleteHandler} onEdit={(product)=>onEditProduct(product)} />)}
       </ul>
     </div>
   )
