@@ -5,10 +5,12 @@ import { FaShoppingCart } from "react-icons/fa";
 import {useDispatch, useSelector} from 'react-redux';
 import { authActions } from '../../contexts/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { cartActions } from '../../contexts/cartSlice';
 
 const MainHeader = (props) => {
   const authContext = useSelector(state=>state.auth.isLoggedIn);
   const isAdmin = useSelector(state=>state.auth.admin);
+  const cart = useSelector(state=>state.cart.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const MainHeader = (props) => {
               <button onClick={authHandler} className='btn btn-info '>{authContext===false?'Login/SignIn':'Logout'}</button>
             </li>
             <li>
-              <button className='d-flex align-items-center fs-5 justify-content-between gap-2 rounded-3 bg-transparent text-light'><FaShoppingCart/><div>{0}</div></button>
+              <button onClick={()=>dispatch(cartActions.toggleViewCart())} className='d-flex align-items-center fs-5 justify-content-between gap-2 rounded-3 bg-transparent text-light'><FaShoppingCart/><div>{cart.length}</div></button>
             </li>
           </ul>
         </nav>

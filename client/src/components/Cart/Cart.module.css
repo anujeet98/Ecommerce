@@ -1,0 +1,49 @@
+
+.ul{
+    width: 100%;
+    padding: 0;
+}
+
+.total{
+    font-size: x-large;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.btnGrp{
+    display: flex;
+    float: right;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.button{
+    background-color: rgb(151, 38, 38);
+    border: 2px solid rgb(151, 38, 38);
+    color: white;
+    border-radius: 30px;
+    width: 7.5rem;
+    height: 2.5rem;
+}
+
+.button--cancel{
+    background-color: white;
+    color: rgb(151, 38, 38);
+    border: 2px solid rgb(151, 38, 38);
+    border-radius: 30px;
+    width: 7.5rem;
+    height: 2.5rem;
+}
+
+.button:hover,
+.button--cancel:hover{
+    cursor: pointer;
+}
+
+.button:active,
+.button--cancel:active{
+    transform: scale(0.95);
+}
