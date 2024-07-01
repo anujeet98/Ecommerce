@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router';
 // import { Switch } from 'react-router-dom'
 import Admin from './pages/Admin';
 import { useSelector } from 'react-redux';
+import MyOrders from './pages/MyOrders';
 // import { Redirect } from 'react-router-dom/cjs/react-router-dom';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 						<Route path='/' element={<Home/>} exact />
 						{!isLoggedIn} && <Route path='/auth' exact element={<Auth/>} />
 						<Route path='/admin' exact element={isLoggedIn && isAdmin ? <Admin /> : <Home/>}/>
+						{isLoggedIn} && <Route path='/myorders' exact element={isLoggedIn ? <MyOrders /> : <Home/>}/>
 						<Route path='*' element={<Home/>} />
 					</Routes>
 				

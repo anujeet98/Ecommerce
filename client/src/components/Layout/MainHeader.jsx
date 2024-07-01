@@ -34,12 +34,12 @@ const MainHeader = (props) => {
           </ul>
         </nav>
       </div>
-      <div className=''>
+      <div className='me-auto'>
         <Navbar>
           <nav>
             <ul className='text-light d-flex list-unstyled gap-3 justify-content-start align-items-start'>
               <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/')}>Home</li>
-              {authContext && <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/admin')}>My Orders</li>}
+              {authContext && <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/myorders')}>My Orders</li>}
               {isAdmin && <li className='btn p-0 text-white fs-5 border-0' onClick={()=>navigate('/admin')}>Admin</li>}
             </ul>
           </nav>
